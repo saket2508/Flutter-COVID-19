@@ -6,7 +6,6 @@ class CasesLineChart extends StatelessWidget {
   List<charts.Series> seriesList;
   final bool animate;
   final List<WorldTimeSeries> chartData;
-  // final bool darkmode;
 
   CasesLineChart(this.chartData, {this.animate}) {
     seriesList = getChartData(chartData);
@@ -16,15 +15,12 @@ class CasesLineChart extends StatelessWidget {
       List<WorldTimeSeries> data, bool darkmode) {
     return new CasesLineChart(
       data,
-      // Disable animations for image tests.
       animate: false,
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    // var brigthness = MediaQuery.of(context).platformBrightness;
-    // bool darkMode = brigthness == Brightness.dark;
     return Container(
       child: new charts.TimeSeriesChart(
         seriesList,
@@ -63,13 +59,10 @@ class CasesLineChart extends StatelessWidget {
             tickProviderSpec:
                 new charts.BasicNumericTickProviderSpec(desiredTickCount: 6),
             renderSpec: new charts.GridlineRendererSpec(
-                // Tick and Label styling here.
                 labelStyle: new charts.TextStyleSpec(
-                    fontSize: 12, // size in Pts.
+                    fontSize: 12,
                     fontFamily: 'Open Sans',
                     color: charts.MaterialPalette.black),
-
-                // Change the line colors to match text color.
                 lineStyle: new charts.LineStyleSpec(
                     color: charts.MaterialPalette.gray.shade200))),
       ),

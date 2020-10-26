@@ -5,7 +5,6 @@ import 'package:charts_flutter/flutter.dart' as charts;
 class DonutPieChart extends StatelessWidget {
   List<charts.Series> seriesList;
   final bool animate;
-  // final bool darkmode;
   final List<int> chartData;
 
   DonutPieChart(this.chartData, {this.animate}) {
@@ -81,7 +80,7 @@ class DonutPieChart extends StatelessWidget {
                       text: TextSpan(
                           text: 'Recovered',
                           style: GoogleFonts.openSans(
-                              fontSize: 15,
+                              // fontSize: 15,
                               color: Colors.black,
                               fontWeight: FontWeight.w600,
                               letterSpacing: 1.0),
@@ -102,11 +101,6 @@ class DonutPieChart extends StatelessWidget {
                                     color: Colors.grey[700])),
                           ]),
                     ),
-                    // child: RichText('Recovered',
-                    //     style: GoogleFonts.openSans(
-                    //         fontSize: 16,
-                    //         fontWeight: FontWeight.w600,
-                    //         letterSpacing: 1.0)),
                   ),
                 ],
               ),
@@ -129,7 +123,7 @@ class DonutPieChart extends StatelessWidget {
                       text: TextSpan(
                           text: 'Active',
                           style: GoogleFonts.openSans(
-                              fontSize: 15,
+                              // fontSize: 15,
                               color: Colors.black,
                               fontWeight: FontWeight.w600,
                               letterSpacing: 1.0),
@@ -172,7 +166,7 @@ class DonutPieChart extends StatelessWidget {
                       text: TextSpan(
                           text: 'Deaths',
                           style: GoogleFonts.openSans(
-                              fontSize: 15,
+                              // fontSize: 15,
                               color: Colors.black,
                               fontWeight: FontWeight.w600,
                               letterSpacing: 1.0),

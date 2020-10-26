@@ -22,27 +22,10 @@ Future<CountryTimeSeries> getData(var countryName, var url) async {
         "Country not found or doesn't have any historical data") {
       throw new Exception('Could not get historical data for ' + countryName);
     } else {
-      // print(jsonTs);
       return CountryTimeSeries.fromJson(jsonTs['timeline']);
     }
   }
 }
-
-// String countryName(String initialName) {
-//   if (initialName == "USA") {
-//     return "United States";
-//   } else if (initialName == "UK") {
-//     return "United Kingdom";
-//   } else if (initialName == "S. Korea") {
-//     return "South Korea";
-//   } else if (initialName == "Libyan Arab Jamahiriya") {
-//     return "Libya";
-//   } else if (initialName == "Syrian Arab Republic") {
-//     return "Syria";
-//   } else {
-//     return initialName;
-//   }
-// }
 
 class _CountryPageState extends State<CountryPage> {
   Future<CountryTimeSeries> _timeseriesdata;
@@ -73,9 +56,6 @@ class _CountryPageState extends State<CountryPage> {
   Widget build(BuildContext context) {
     Country data = ModalRoute.of(context).settings.arguments;
     var f = new NumberFormat("###,###", "en_US");
-    // var brigthness = MediaQuery.of(context).platformBrightness;
-    // bool darkMode = brigthness == Brightness.dark;
-    // print(data);
     return Scaffold(
       appBar: AppBar(
         title: Row(
@@ -87,7 +67,7 @@ class _CountryPageState extends State<CountryPage> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 5.0),
+              padding: const EdgeInsets.only(left: 8.0),
               child: Text(
                 data.country_name,
                 style: Theme.of(context).appBarTheme.textTheme.headline6,

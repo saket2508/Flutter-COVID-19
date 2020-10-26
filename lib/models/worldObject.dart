@@ -12,7 +12,6 @@ class WorldObject {
   int new_deaths;
   int recovered;
   int new_recoveries;
-  // var testspermillion;
   var casespermillion;
   var deathspermillion;
   // double tests_per_hundred;
