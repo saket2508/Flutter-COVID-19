@@ -1,12 +1,5 @@
 import './worldObject.dart';
 
-// class TimeSeries {
-//   final int variable;
-//   final DateTime date;
-
-//   TimeSeries({this.date, this.variable});
-// }
-
 class CountryTimeSeries {
   final List<WorldTimeSeries> casesData;
   final List<WorldTimeSeries> deathsData;

@@ -51,7 +51,7 @@ class DonutPieChart extends StatelessWidget {
     // bool darkMode = brigthness == Brightness.dark;
     return Row(
       crossAxisAlignment: CrossAxisAlignment.stretch,
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
           width: MediaQuery.of(context).size.width / 2,
@@ -64,7 +64,7 @@ class DonutPieChart extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.all(6.0),
+              padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 6),
               child: Row(
                 children: [
                   Container(
@@ -75,7 +75,7 @@ class DonutPieChart extends StatelessWidget {
                         color: Colors.lightGreen),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(left: 4.0),
+                    padding: EdgeInsets.only(left: 2),
                     child: RichText(
                       text: TextSpan(
                           text: 'Recovered',
@@ -106,7 +106,7 @@ class DonutPieChart extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(6.0),
+              padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 6),
               child: Row(
                 children: [
                   Container(
@@ -118,7 +118,7 @@ class DonutPieChart extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(left: 4.0),
+                    padding: EdgeInsets.only(left: 2),
                     child: RichText(
                       text: TextSpan(
                           text: 'Active',
@@ -149,7 +149,7 @@ class DonutPieChart extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(6.0),
+              padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 6),
               child: Row(
                 children: [
                   Container(
@@ -161,7 +161,7 @@ class DonutPieChart extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(left: 4.0),
+                    padding: EdgeInsets.only(left: 2),
                     child: RichText(
                       text: TextSpan(
                           text: 'Deaths',
