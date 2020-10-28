@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import './widgets/countries.dart';
 import './pages/countrypage.dart';
 import './widgets/world.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 void main() {
   runApp(MyApp());
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
           scaffoldBackgroundColor: Colors.grey[100],
           appBarTheme: AppBarTheme(
               color: Color(0xff343a40),
-              // color: Colors.blueGrey,
+              // color: Colors.blueGrey[900],
               textTheme: TextTheme(
                 headline6: GoogleFonts.openSans(
                     textStyle: TextStyle(
