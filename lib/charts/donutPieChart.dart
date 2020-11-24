@@ -12,7 +12,7 @@ class DonutPieChart extends StatelessWidget {
       new CountryPieDataLabel(
           'Active', chartData[0], charts.ColorUtil.fromDartColor(Colors.blue)),
       new CountryPieDataLabel('Recovered', chartData[1],
-          charts.ColorUtil.fromDartColor(Colors.lightGreen)),
+          charts.ColorUtil.fromDartColor(Colors.green)),
       new CountryPieDataLabel(
         'Deaths',
         chartData[2],
@@ -72,7 +72,7 @@ class DonutPieChart extends StatelessWidget {
                     width: 10,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(5),
-                        color: Colors.lightGreen),
+                        color: Colors.green),
                   ),
                   Padding(
                     padding: EdgeInsets.only(left: 2),

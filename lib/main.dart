@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
                     color: Colors.black)),
             subtitle1: GoogleFonts.openSans(
                 textStyle: TextStyle(
-                    fontWeight: FontWeight.w400,
+                    fontWeight: FontWeight.w600,
                     fontSize: 12,
                     color: Colors.grey[700])),
             subtitle2: GoogleFonts.openSans(
