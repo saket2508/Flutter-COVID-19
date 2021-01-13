@@ -21,13 +21,14 @@ class CountryTimeSeries {
       // print(month);
       int day = int.parse(dates[i]
           .substring(dates[i].indexOf('/') + 1, dates[i].indexOf('/', 3)));
-
+      int year =
+          2000 + int.parse(dates[i].substring(dates[i].indexOf('/', 3) + 1));
       // print(day);
-      print(dates[29]);
+      // print(dates[29]);
       tempCases.add(WorldTimeSeries(
-          variable: newInfections, date: DateTime(2020, month, day)));
+          variable: newInfections, date: DateTime(year, month, day)));
       tempDeaths.add(WorldTimeSeries(
-          variable: newDeaths, date: DateTime(2020, month, day)));
+          variable: newDeaths, date: DateTime(year, month, day)));
     }
 
     return CountryTimeSeries(casesData: tempCases, deathsData: tempDeaths);

@@ -38,7 +38,7 @@ class CasesLineChart extends StatelessWidget {
           // behaviors: [new charts.SelectNearest(), new charts.DomainHighlighter()],
           domainAxis: new charts.EndPointsTimeAxisSpec(
             tickProviderSpec:
-                charts.DayTickProviderSpec(increments: [chartData.length ~/ 4]),
+                charts.DayTickProviderSpec(increments: [chartData.length ~/ 5]),
             renderSpec: new charts.SmallTickRendererSpec(
                 // labelRotation: 340,
                 labelStyle: new charts.TextStyleSpec(
@@ -121,7 +121,6 @@ class CasesLineChart extends StatelessWidget {
   static List<charts.Series<WorldTimeSeries, DateTime>> getChartData(
       List<WorldTimeSeries> chartData) {
     final data = chartData;
-    print(data.length);
     return [
       new charts.Series<WorldTimeSeries, DateTime>(
         id: 'New Infections',

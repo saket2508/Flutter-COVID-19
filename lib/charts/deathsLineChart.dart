@@ -136,7 +136,6 @@ class DeathsLineChart extends StatelessWidget {
   static List<charts.Series<WorldTimeSeries, DateTime>> getChartData(
       List<WorldTimeSeries> chartData) {
     final data = chartData;
-    // print(data.length);
     return [
       new charts.Series<WorldTimeSeries, DateTime>(
         id: 'New Deaths',

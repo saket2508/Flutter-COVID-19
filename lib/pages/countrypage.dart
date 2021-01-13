@@ -43,7 +43,7 @@ class _CountryPageState extends State<CountryPage> {
         setState(() {
           Country _selectedCountry = ModalRoute.of(context).settings.arguments;
           var deltaDays =
-              (new DateTime.now().difference(new DateTime(2020, 1, 23))).inDays;
+              (new DateTime.now().difference(new DateTime(2020, 3, 14))).inDays;
           // print(deltaDays);
           _timeseriesdata = getData(_selectedCountry.country_name,
               "https://corona.lmao.ninja/v3/covid-19/historical/${_selectedCountry.country_name}/?lastdays=${deltaDays}");

@@ -15,7 +15,7 @@ class World extends StatefulWidget {
 
 Future<WorldObject> fetchData() async {
   var deltaDays =
-      (new DateTime.now().difference(new DateTime(2020, 1, 23))).inDays;
+      (new DateTime.now().difference(new DateTime(2020, 3, 14))).inDays;
   // print(deltaDays);
   var responses = await Future.wait([
     http.get('https://corona.lmao.ninja/v3/covid-19/all'),
@@ -26,6 +26,7 @@ Future<WorldObject> fetchData() async {
   if (responses[0].statusCode == 200 && responses[1].statusCode == 200) {
     Map jsonResponse = json.decode(responses[0].body);
     Map jsonHistorical = json.decode(responses[1].body);
+    // print(jsonHistorical['cases'].keys.toList().length);
     return WorldObject.fromJson(jsonResponse, jsonHistorical);
   }
 }
@@ -46,7 +47,6 @@ class _WorldState extends State<World>
     // print(data);
     super.initState();
     // data = fetchData();
-    // print(data);
   }
 
   @override
