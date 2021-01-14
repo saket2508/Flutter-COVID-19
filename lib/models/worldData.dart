@@ -1,9 +1,4 @@
-class WorldTimeSeries {
-  final DateTime date;
-  final int variable;
-
-  WorldTimeSeries({this.date, this.variable});
-}
+import 'timeSeriesModel.dart';
 
 class WorldObject {
   int cases;
@@ -14,11 +9,10 @@ class WorldObject {
   int new_recoveries;
   var casespermillion;
   var deathspermillion;
-  // double tests_per_hundred;
   int active;
   DateTime lastUpdated;
-  List<WorldTimeSeries> casesData;
-  List<WorldTimeSeries> deathsData;
+  List<TimeSeries> casesData;
+  List<TimeSeries> deathsData;
 
   WorldObject(
       {this.cases,
@@ -30,7 +24,6 @@ class WorldObject {
       this.new_recoveries,
       this.lastUpdated,
       this.casesData,
-      // this.testspermillion,
       this.casespermillion,
       this.deathspermillion,
       this.deathsData});
@@ -40,8 +33,8 @@ class WorldObject {
     List totalCases = (jsonTs['cases'].values).toList();
     List totalDeaths = (jsonTs['deaths'].values).toList();
     List dates = (jsonTs['cases'].keys).toList();
-    List<WorldTimeSeries> tempCases = [];
-    List<WorldTimeSeries> tempDeaths = [];
+    List<TimeSeries> tempCases = [];
+    List<TimeSeries> tempDeaths = [];
     for (int i = 1; i < totalCases.length; i++) {
       int newInfections = totalCases[i] - totalCases[i - 1];
       int newDeaths = totalDeaths[i] - totalDeaths[i - 1];
@@ -52,9 +45,9 @@ class WorldObject {
 
       int year =
           2000 + int.parse(dates[i].substring(dates[i].indexOf('/', 3) + 1));
-      tempCases.add(new WorldTimeSeries(
+      tempCases.add(new TimeSeries(
           date: new DateTime(year, month, day), variable: newInfections));
-      tempDeaths.add(new WorldTimeSeries(
+      tempDeaths.add(new TimeSeries(
           date: new DateTime(year, month, day), variable: newDeaths));
     }
     return WorldObject(

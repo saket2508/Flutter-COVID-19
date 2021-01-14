@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import './widgets/countries.dart';
-import './pages/countrypage.dart';
-import './widgets/world.dart';
+import 'screens/countriesView.dart';
+import 'screens/countryScreen.dart';
+import 'screens/worldScreen.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 void main() {

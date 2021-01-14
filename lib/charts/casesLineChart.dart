@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
-import '../models/worldObject.dart';
+import '../models/timeSeriesModel.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 
 class CasesLineChart extends StatelessWidget {
   List<charts.Series> seriesList;
   final bool animate;
-  final List<WorldTimeSeries> chartData;
+  final List<TimeSeries> chartData;
 
   CasesLineChart(this.chartData, {this.animate}) {
     seriesList = getChartData(chartData);
   }
 
-  factory CasesLineChart.withSampleData(
-      List<WorldTimeSeries> data, bool darkmode) {
+  factory CasesLineChart.withSampleData(List<TimeSeries> data, bool darkmode) {
     return new CasesLineChart(
       data,
       animate: false,
@@ -38,7 +37,7 @@ class CasesLineChart extends StatelessWidget {
           // behaviors: [new charts.SelectNearest(), new charts.DomainHighlighter()],
           domainAxis: new charts.EndPointsTimeAxisSpec(
             tickProviderSpec:
-                charts.DayTickProviderSpec(increments: [chartData.length ~/ 5]),
+                charts.DayTickProviderSpec(increments: [chartData.length ~/ 6]),
             renderSpec: new charts.SmallTickRendererSpec(
                 // labelRotation: 340,
                 labelStyle: new charts.TextStyleSpec(
@@ -118,15 +117,15 @@ class CasesLineChart extends StatelessWidget {
     }
   }
 
-  static List<charts.Series<WorldTimeSeries, DateTime>> getChartData(
-      List<WorldTimeSeries> chartData) {
+  static List<charts.Series<TimeSeries, DateTime>> getChartData(
+      List<TimeSeries> chartData) {
     final data = chartData;
     return [
-      new charts.Series<WorldTimeSeries, DateTime>(
+      new charts.Series<TimeSeries, DateTime>(
         id: 'New Infections',
         colorFn: (_, __) => charts.ColorUtil.fromDartColor(Colors.blue),
-        domainFn: (WorldTimeSeries item, _) => item.date,
-        measureFn: (WorldTimeSeries item, _) => item.variable,
+        domainFn: (TimeSeries item, _) => item.date,
+        measureFn: (TimeSeries item, _) => item.variable,
         data: data,
       )
     ];

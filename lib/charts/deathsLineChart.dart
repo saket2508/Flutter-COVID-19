@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
-import '../models/worldObject.dart';
+import '../models/timeSeriesModel.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 
 class DeathsLineChart extends StatelessWidget {
   List<charts.Series> seriesList;
   final bool animate;
-  final List<WorldTimeSeries> chartData;
+  final List<TimeSeries> chartData;
   // final bool darkmode;
 
   DeathsLineChart(this.chartData, {this.animate}) {
     seriesList = getChartData(chartData);
   }
 
-  factory DeathsLineChart.withSampleData(
-      List<WorldTimeSeries> data, bool darkmode) {
+  factory DeathsLineChart.withSampleData(List<TimeSeries> data, bool darkmode) {
     return new DeathsLineChart(
       data,
       // Disable animations for image tests.
@@ -133,16 +132,16 @@ class DeathsLineChart extends StatelessWidget {
     }
   }
 
-  static List<charts.Series<WorldTimeSeries, DateTime>> getChartData(
-      List<WorldTimeSeries> chartData) {
+  static List<charts.Series<TimeSeries, DateTime>> getChartData(
+      List<TimeSeries> chartData) {
     final data = chartData;
     return [
-      new charts.Series<WorldTimeSeries, DateTime>(
+      new charts.Series<TimeSeries, DateTime>(
         id: 'New Deaths',
         colorFn: (_, __) =>
             charts.ColorUtil.fromDartColor(Colors.grey.shade700),
-        domainFn: (WorldTimeSeries item, _) => item.date,
-        measureFn: (WorldTimeSeries item, _) => item.variable,
+        domainFn: (TimeSeries item, _) => item.date,
+        measureFn: (TimeSeries item, _) => item.variable,
         data: data,
       )
     ];

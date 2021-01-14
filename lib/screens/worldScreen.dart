@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import '../models/worldObject.dart';
+import '../models/worldData.dart';
 import 'package:intl/intl.dart';
 import '../charts/donutPieChart.dart';
 import '../charts/casesLineChart.dart';

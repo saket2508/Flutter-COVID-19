@@ -1,4 +1,4 @@
-import './worldObject.dart';
+import 'worldData.dart';
 
 class Country {
   String country_name;

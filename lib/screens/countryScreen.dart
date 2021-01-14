@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../models/country.dart';
+import '../models/countryData.dart';
 import '../models/countryTimeSeries.dart';
 import '../charts/donutPieChart.dart';
 import 'dart:convert';
