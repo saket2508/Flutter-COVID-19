@@ -48,15 +48,13 @@ class _CountriesState extends State<Countries>
           // autofocus: true,
           autocorrect: true,
           style: GoogleFonts.openSans(
-            fontSize: 16,
-            color: Colors.grey[800],
-          ),
+              fontSize: 16, color: Theme.of(context).secondaryHeaderColor),
           decoration: InputDecoration(
             filled: true,
-            // fillColor: Colors.grey[300],
             hintText: 'Search',
             // helperStyle: TextStyle(fontStyle: FontStyle.italic),
-            prefixIcon: Icon(Icons.search, color: Colors.grey),
+            prefixIcon: Icon(Icons.search,
+                color: Theme.of(context).secondaryHeaderColor),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(30),
               borderSide: BorderSide(
@@ -126,14 +124,14 @@ class _CountriesState extends State<Countries>
                             children: [
                               Text(
                                 '+',
-                                style: Theme.of(context).textTheme.subtitle1,
+                                style: Theme.of(context).textTheme.subtitle2,
                               ),
                               SizedBox(
                                 width: 2,
                               ),
                               Text(
                                 f.format(_country.new_cases),
-                                style: Theme.of(context).textTheme.subtitle1,
+                                style: Theme.of(context).textTheme.subtitle2,
                               ),
                             ],
                           )

@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../models/countryData.dart';
 import '../models/countryTimeSeries.dart';
-import '../charts/donutPieChart.dart';
+import '../charts/PieChart.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
-import '../charts/casesLineChart.dart';
-import '../charts/deathsLineChart.dart';
+import '../charts/LineChartCases.dart';
+import '../charts/LineChartDeaths.dart';
+import '../charts/BarChartDeaths.dart';
+import '../charts/BarChartCases.dart';
 
 class CountryPage extends StatefulWidget {
   @override
@@ -55,6 +57,8 @@ class _CountryPageState extends State<CountryPage> {
   @override
   Widget build(BuildContext context) {
     Country data = ModalRoute.of(context).settings.arguments;
+    var brightness = Theme.of(context).brightness;
+    bool darkMode = brightness == Brightness.dark;
     var f = new NumberFormat("###,###", "en_US");
     return Scaffold(
       appBar: AppBar(
@@ -89,8 +93,16 @@ class _CountryPageState extends State<CountryPage> {
                 Container(
                   height: MediaQuery.of(context).size.width * 0.5,
                   width: MediaQuery.of(context).size.width,
-                  child: DonutPieChart.withSampleData(
-                      [data.active, data.recovered, data.deaths]),
+                  // child: DonutPieChart.withSampleData(
+                  //     [data.active, data.recovered, data.deaths], darkMode),
+                  child: PieChartFlutter(
+                    chartData: [
+                      data.active.toDouble(),
+                      data.recovered.toDouble(),
+                      data.deaths.toDouble()
+                    ],
+                    darkMode: darkMode,
+                  ),
                 ),
                 Container(
                   width: MediaQuery.of(context).size.width,
@@ -105,7 +117,7 @@ class _CountryPageState extends State<CountryPage> {
                             Text(
                               'Cases/M',
                               style: GoogleFonts.openSans(
-                                  color: Colors.grey[700],
+                                  color: Theme.of(context).secondaryHeaderColor,
                                   letterSpacing: 1.0,
                                   fontWeight: FontWeight.w600),
                             ),
@@ -123,7 +135,7 @@ class _CountryPageState extends State<CountryPage> {
                             Text(
                               'Deaths/M',
                               style: GoogleFonts.openSans(
-                                  color: Colors.grey[700],
+                                  color: Theme.of(context).secondaryHeaderColor,
                                   letterSpacing: 1.0,
                                   fontWeight: FontWeight.w600),
                             ),
@@ -142,7 +154,7 @@ class _CountryPageState extends State<CountryPage> {
                               'Tests/M',
                               style: GoogleFonts.openSans(
                                   letterSpacing: 1.0,
-                                  color: Colors.grey[700],
+                                  color: Theme.of(context).secondaryHeaderColor,
                                   fontWeight: FontWeight.w600),
                             ),
                             Text(
@@ -190,7 +202,8 @@ class _CountryPageState extends State<CountryPage> {
                                   'Confirmed',
                                   style: GoogleFonts.openSans(
                                       fontSize: 14,
-                                      color: Colors.grey[700],
+                                      color: Theme.of(context)
+                                          .secondaryHeaderColor,
                                       fontStyle: FontStyle.normal,
                                       letterSpacing: 1.0,
                                       fontWeight: FontWeight.w600),
@@ -208,9 +221,11 @@ class _CountryPageState extends State<CountryPage> {
                                         child: Text(
                                           '+' + f.format(data.new_cases),
                                           style: GoogleFonts.openSans(
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.w600,
-                                              color: Colors.grey[700]),
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.w600,
+                                            color: Theme.of(context)
+                                                .secondaryHeaderColor,
+                                          ),
                                         ),
                                       )
                                     : Text('')
@@ -235,7 +250,8 @@ class _CountryPageState extends State<CountryPage> {
                               Text(
                                 'Deaths',
                                 style: GoogleFonts.openSans(
-                                    color: Colors.grey[700],
+                                    color:
+                                        Theme.of(context).secondaryHeaderColor,
                                     fontSize: 14,
                                     letterSpacing: 1.0,
                                     fontWeight: FontWeight.w600),
@@ -251,9 +267,11 @@ class _CountryPageState extends State<CountryPage> {
                                       child: Text(
                                         '+' + f.format(data.new_deaths),
                                         style: GoogleFonts.openSans(
-                                            fontSize: 15,
-                                            fontWeight: FontWeight.w600,
-                                            color: Colors.grey[700]),
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w600,
+                                          color: Theme.of(context)
+                                              .secondaryHeaderColor,
+                                        ),
                                       ))
                                   : Text('')
                             ],
@@ -286,7 +304,9 @@ class _CountryPageState extends State<CountryPage> {
                                     style: GoogleFonts.openSans(
                                         fontWeight: FontWeight.w600)),
                                 selected: timeline == 'All Time',
-                                selectedColor: Colors.blue[100],
+                                selectedColor: darkMode
+                                    ? Colors.grey[100]
+                                    : Colors.blue[100],
                                 onSelected: (bool selected) {
                                   setState(() {
                                     timeline = 'All Time';
@@ -303,7 +323,9 @@ class _CountryPageState extends State<CountryPage> {
                                       fontWeight: FontWeight.w600),
                                 ),
                                 selected: timeline == '30 Days',
-                                selectedColor: Colors.blue[100],
+                                selectedColor: darkMode
+                                    ? Colors.grey[100]
+                                    : Colors.blue[100],
                                 onSelected: (bool selected) {
                                   setState(() {
                                     timeline = '30 Days';
@@ -317,30 +339,41 @@ class _CountryPageState extends State<CountryPage> {
                       Container(
                         height: MediaQuery.of(context).size.width * 0.5,
                         width: MediaQuery.of(context).size.width,
+                        // child: Padding(
+                        //   padding: const EdgeInsets.fromLTRB(11, 5, 24, 5),
+                        //   child: LineChartDeaths(
+                        //     chartData: snapshot.data.deathsData,
+                        //     darkMode: darkMode,
+                        //   ),
+                        // ),
                         child: timeline == "All Time"
                             ? Padding(
                                 padding:
-                                    const EdgeInsets.fromLTRB(10, 0, 10, 3),
+                                    const EdgeInsets.fromLTRB(11, 5, 24, 5),
                                 child: selectedVariable == "New Infections"
-                                    ? CasesLineChart.withSampleData(
-                                        snapshot.data.casesData, false)
-                                    : DeathsLineChart.withSampleData(
-                                        snapshot.data.deathsData, false),
+                                    ? LineChartCases(
+                                        chartData: snapshot.data.casesData,
+                                        darkMode: darkMode)
+                                    : LineChartDeaths(
+                                        chartData: snapshot.data.deathsData,
+                                        darkMode: darkMode),
                               )
                             : Padding(
                                 padding:
-                                    const EdgeInsets.fromLTRB(10, 0, 10, 3),
+                                    const EdgeInsets.fromLTRB(11, 5, 24, 5),
                                 child: selectedVariable == "New Infections"
-                                    ? CasesLineChart.withSampleData(
-                                        snapshot.data.casesData.sublist(
-                                            snapshot.data.casesData.length -
+                                    ? BarChartCases(
+                                        chartData: snapshot.data.casesData
+                                            .sublist(snapshot
+                                                    .data.casesData.length -
                                                 30),
-                                        false)
-                                    : DeathsLineChart.withSampleData(
-                                        snapshot.data.deathsData.sublist(
-                                            snapshot.data.casesData.length -
-                                                30),
-                                        false),
+                                        darkMode: darkMode)
+                                    : BarChartDeaths(
+                                        chartData: snapshot.data.deathsData
+                                            .sublist(
+                                                snapshot.data.casesData.length -
+                                                    30),
+                                        darkMode: darkMode),
                               ),
                       ),
                       Padding(
@@ -354,7 +387,9 @@ class _CountryPageState extends State<CountryPage> {
                                     style: GoogleFonts.openSans(
                                         fontWeight: FontWeight.w600)),
                                 selected: selectedVariable == 'New Infections',
-                                selectedColor: Colors.blue[100],
+                                selectedColor: darkMode
+                                    ? Colors.grey[100]
+                                    : Colors.blue[100],
                                 onSelected: (bool selected) {
                                   setState(() {
                                     selectedVariable = 'New Infections';
@@ -371,7 +406,9 @@ class _CountryPageState extends State<CountryPage> {
                                       fontWeight: FontWeight.w600),
                                 ),
                                 selected: selectedVariable == 'New Deaths',
-                                selectedColor: Colors.blue[100],
+                                selectedColor: darkMode
+                                    ? Colors.grey[100]
+                                    : Colors.blue[100],
                                 onSelected: (bool selected) {
                                   setState(() {
                                     selectedVariable = 'New Deaths';

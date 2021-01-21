@@ -4,9 +4,13 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import '../models/worldData.dart';
 import 'package:intl/intl.dart';
-import '../charts/donutPieChart.dart';
-import '../charts/casesLineChart.dart';
-import '../charts/deathsLineChart.dart';
+import '../theme/theme_provider.dart';
+import 'package:provider/provider.dart';
+import '../charts/PieChart.dart';
+import '../charts/LineChartDeaths.dart';
+import '../charts/LineChartCases.dart';
+import '../charts/BarChartCases.dart';
+import '../charts/BarChartDeaths.dart';
 
 class World extends StatefulWidget {
   @override
@@ -18,7 +22,7 @@ Future<WorldObject> fetchData() async {
       (new DateTime.now().difference(new DateTime(2020, 3, 14))).inDays;
   // print(deltaDays);
   var responses = await Future.wait([
-    http.get('https://corona.lmao.ninja/v3/covid-19/all'),
+    http.get('https://disease.sh/v3/covid-19/all'),
     http.get(
         'https://corona.lmao.ninja/v3/covid-19/historical/all/?lastdays=${deltaDays}'),
   ]);
@@ -53,8 +57,8 @@ class _WorldState extends State<World>
   Widget build(BuildContext context) {
     super.build(context); // need to call super method.
     var f = new NumberFormat("###,###", "en_US");
-    // var brigthness = MediaQuery.of(context).platformBrightness;
-    // bool darkMode = brigthness == Brightness.dark;
+    var brigthness = Theme.of(context).brightness;
+    bool darkMode = brigthness == Brightness.dark;
     return FutureBuilder<WorldObject>(
       future: data,
       builder: (context, snapshot) {
@@ -72,11 +76,11 @@ class _WorldState extends State<World>
                         Container(
                             height: MediaQuery.of(context).size.width * 0.5,
                             width: MediaQuery.of(context).size.width,
-                            child: DonutPieChart.withSampleData([
-                              snapshot.data.active,
-                              snapshot.data.recovered,
-                              snapshot.data.deaths
-                            ])),
+                            child: PieChartFlutter(chartData: [
+                              snapshot.data.active.toDouble(),
+                              snapshot.data.recovered.toDouble(),
+                              snapshot.data.deaths.toDouble()
+                            ], darkMode: darkMode)),
                         Container(
                           width: MediaQuery.of(context).size.width,
                           child: Padding(
@@ -90,14 +94,14 @@ class _WorldState extends State<World>
                                     Text(
                                       'Cases/M',
                                       style: GoogleFonts.openSans(
-                                          color: Colors.grey[700],
+                                          color: Theme.of(context)
+                                              .secondaryHeaderColor,
                                           letterSpacing: 1.0,
                                           fontWeight: FontWeight.w600),
                                     ),
                                     Text(
                                       f.format(snapshot.data.casespermillion),
                                       style: GoogleFonts.openSans(
-                                          // color: Colors.grey[700],
                                           fontSize: 17,
                                           fontWeight: FontWeight.w600),
                                     ),
@@ -108,14 +112,14 @@ class _WorldState extends State<World>
                                     Text(
                                       'Deaths/M',
                                       style: GoogleFonts.openSans(
-                                          color: Colors.grey[700],
+                                          color: Theme.of(context)
+                                              .secondaryHeaderColor,
                                           letterSpacing: 1.0,
                                           fontWeight: FontWeight.w600),
                                     ),
                                     Text(
                                       f.format(snapshot.data.deathspermillion),
                                       style: GoogleFonts.openSans(
-                                          // color: Colors.grey[700],
                                           fontSize: 17,
                                           fontWeight: FontWeight.w600),
                                     ),
@@ -158,7 +162,8 @@ class _WorldState extends State<World>
                                           'Confirmed',
                                           style: GoogleFonts.openSans(
                                               fontSize: 14,
-                                              color: Colors.grey[700],
+                                              color: Theme.of(context)
+                                                  .secondaryHeaderColor,
                                               fontStyle: FontStyle.normal,
                                               letterSpacing: 1.0,
                                               fontWeight: FontWeight.w600),
@@ -181,7 +186,8 @@ class _WorldState extends State<World>
                                                       fontSize: 14,
                                                       fontWeight:
                                                           FontWeight.w600,
-                                                      color: Colors.grey[700]),
+                                                      color: Theme.of(context)
+                                                          .secondaryHeaderColor),
                                                 ))
                                             : Text('')
                                       ],
@@ -209,7 +215,8 @@ class _WorldState extends State<World>
                                           'Deaths',
                                           style: GoogleFonts.openSans(
                                               fontSize: 14,
-                                              color: Colors.grey[700],
+                                              color: Theme.of(context)
+                                                  .secondaryHeaderColor,
                                               letterSpacing: 1.0,
                                               fontWeight: FontWeight.w600),
                                         ),
@@ -231,7 +238,8 @@ class _WorldState extends State<World>
                                                       fontSize: 15,
                                                       fontWeight:
                                                           FontWeight.w600,
-                                                      color: Colors.grey[700]),
+                                                      color: Theme.of(context)
+                                                          .secondaryHeaderColor),
                                                 ),
                                               )
                                             : Text('')
@@ -246,120 +254,138 @@ class _WorldState extends State<World>
                       ),
                     ],
                   ),
-                  Card(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10)),
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.zero,
-                          child: Wrap(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(2.0),
-                                child: ChoiceChip(
-                                  label: Text('All Time',
-                                      style: GoogleFonts.openSans(
-                                          fontWeight: FontWeight.w600)),
-                                  selected: timeline == 'All Time',
-                                  selectedColor: Colors.blue[100],
-                                  onSelected: (bool selected) {
-                                    setState(() {
-                                      timeline = 'All Time';
-                                    });
-                                  },
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(2.0),
-                                child: ChoiceChip(
-                                  label: Text(
-                                    '30 Days',
-                                    style: GoogleFonts.openSans(
-                                        fontWeight: FontWeight.w600),
+                  Consumer<ThemeNotifier>(
+                    builder: (context, notifier, child) => Card(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10)),
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.zero,
+                            child: Wrap(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(2.0),
+                                  child: ChoiceChip(
+                                    label: Text('All Time',
+                                        style: GoogleFonts.openSans(
+                                            fontWeight: FontWeight.w600)),
+                                    selected: timeline == 'All Time',
+                                    selectedColor: darkMode
+                                        ? Colors.grey[100]
+                                        : Colors.blue[100],
+                                    onSelected: (bool selected) {
+                                      setState(() {
+                                        timeline = 'All Time';
+                                      });
+                                    },
                                   ),
-                                  selected: timeline == '30 Days',
-                                  selectedColor: Colors.blue[100],
-                                  onSelected: (bool selected) {
-                                    setState(() {
-                                      timeline = '30 Days';
-                                    });
-                                  },
                                 ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          height: MediaQuery.of(context).size.width * 0.5,
-                          width: MediaQuery.of(context).size.width,
-                          child: timeline == "All Time"
-                              ? Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(10, 0, 10, 3),
-                                  child: selectedVariable == 'New Infections'
-                                      ? CasesLineChart.withSampleData(
-                                          snapshot.data.casesData, false)
-                                      : DeathsLineChart.withSampleData(
-                                          snapshot.data.deathsData, false),
-                                )
-                              : Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(10, 0, 10, 3),
-                                  child: selectedVariable == 'New Infections'
-                                      ? CasesLineChart.withSampleData(
-                                          snapshot.data.casesData.sublist(
-                                              snapshot.data.casesData.length -
-                                                  30),
-                                          false)
-                                      : DeathsLineChart.withSampleData(
-                                          snapshot.data.deathsData.sublist(
-                                              snapshot.data.casesData.length -
-                                                  30),
-                                          false),
-                                ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.zero,
-                          child: Wrap(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(2.0),
-                                child: ChoiceChip(
-                                  label: Text('New Infections',
+                                Padding(
+                                  padding: const EdgeInsets.all(2.0),
+                                  child: ChoiceChip(
+                                    label: Text(
+                                      '30 Days',
                                       style: GoogleFonts.openSans(
-                                          fontWeight: FontWeight.w600)),
-                                  selected:
-                                      selectedVariable == 'New Infections',
-                                  selectedColor: Colors.blue[100],
-                                  onSelected: (bool selected) {
-                                    setState(() {
-                                      selectedVariable = 'New Infections';
-                                    });
-                                  },
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(2.0),
-                                child: ChoiceChip(
-                                  label: Text(
-                                    'New Deaths',
-                                    style: GoogleFonts.openSans(
-                                        fontWeight: FontWeight.w600),
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                                    selected: timeline == '30 Days',
+                                    selectedColor: darkMode
+                                        ? Colors.grey[100]
+                                        : Colors.blue[100],
+                                    onSelected: (bool selected) {
+                                      setState(() {
+                                        timeline = '30 Days';
+                                      });
+                                    },
                                   ),
-                                  selected: selectedVariable == 'New Deaths',
-                                  selectedColor: Colors.blue[100],
-                                  onSelected: (bool selected) {
-                                    setState(() {
-                                      selectedVariable = 'New Deaths';
-                                    });
-                                  },
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
-                        )
-                      ],
+                          Container(
+                            height: MediaQuery.of(context).size.width * 0.5,
+                            width: MediaQuery.of(context).size.width,
+                            child: timeline == "All Time"
+                                ? Padding(
+                                    padding:
+                                        const EdgeInsets.fromLTRB(11, 5, 24, 5),
+                                    child: selectedVariable == 'New Infections'
+                                        ? LineChartCases(
+                                            chartData: snapshot.data.casesData,
+                                            darkMode: notifier.darkTheme,
+                                          )
+                                        : LineChartDeaths(
+                                            chartData: snapshot.data.deathsData,
+                                            darkMode: notifier.darkTheme,
+                                          ),
+                                  )
+                                : Padding(
+                                    padding:
+                                        const EdgeInsets.fromLTRB(11, 5, 24, 5),
+                                    child: selectedVariable == 'New Infections'
+                                        ? BarChartCases(
+                                            chartData: snapshot.data.casesData
+                                                .sublist(snapshot
+                                                        .data.casesData.length -
+                                                    30),
+                                            darkMode: notifier.darkTheme,
+                                          )
+                                        : BarChartDeaths(
+                                            chartData: snapshot.data.deathsData
+                                                .sublist(snapshot
+                                                        .data.casesData.length -
+                                                    30),
+                                            darkMode: notifier.darkTheme,
+                                          ),
+                                  ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.zero,
+                            child: Wrap(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(2.0),
+                                  child: ChoiceChip(
+                                    label: Text('New Infections',
+                                        style: GoogleFonts.openSans(
+                                            fontWeight: FontWeight.w600)),
+                                    selected:
+                                        selectedVariable == 'New Infections',
+                                    selectedColor: darkMode
+                                        ? Colors.grey[100]
+                                        : Colors.blue[100],
+                                    onSelected: (bool selected) {
+                                      setState(() {
+                                        selectedVariable = 'New Infections';
+                                      });
+                                    },
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(2.0),
+                                  child: ChoiceChip(
+                                    label: Text(
+                                      'New Deaths',
+                                      style: GoogleFonts.openSans(
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                                    selected: selectedVariable == 'New Deaths',
+                                    selectedColor: darkMode
+                                        ? Colors.grey[100]
+                                        : Colors.blue[100],
+                                    onSelected: (bool selected) {
+                                      setState(() {
+                                        selectedVariable = 'New Deaths';
+                                      });
+                                    },
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ],
