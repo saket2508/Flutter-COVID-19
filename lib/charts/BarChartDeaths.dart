@@ -38,14 +38,18 @@ class _BarChartDeathsState extends State<BarChartDeaths> {
       return BarChartGroupData(x: data.date.millisecondsSinceEpoch, barRods: [
         BarChartRodData(
           y: data.variable.toDouble(),
-          colors: [widget.darkMode ? Colors.redAccent : Colors.grey[700]],
+          colors: [
+            widget.darkMode
+                ? Colors.grey[500].withOpacity(0.8)
+                : Colors.grey[700]
+          ],
           width: 8,
         ),
       ]);
     }).toList();
 
     double y_divider = (((max_y - min_y) / 5) / 500).ceilToDouble() * 500;
-    print(y_divider);
+    // print(y_divider);
 
     min_y = (min_y / y_divider).floorToDouble() * y_divider;
     max_y = (max_y / y_divider).ceilToDouble() * y_divider;
@@ -53,6 +57,30 @@ class _BarChartDeathsState extends State<BarChartDeaths> {
     double y_interval = ((max_y - min_y) / (5)).floorToDouble();
     min_x = _values.first.x.toDouble();
     max_x = _values.last.x.toDouble();
+
+    List<BarChartGroupData> getBarChartData(chartData, touchedIndex) {
+      // List<BarChartGroupData> _values = [];
+      return List<BarChartGroupData>.from(chartData.map((data) {
+        if (touchedIndex == chartData.indexOf(data)) {
+          print('equal');
+        }
+        return BarChartGroupData(x: data.date.millisecondsSinceEpoch, barRods: [
+          BarChartRodData(
+            y: data.variable.toDouble(),
+            colors: [
+              widget.darkMode
+                  ? touchedIndex == chartData.indexOf(data)
+                      ? Colors.grey[500].withOpacity(0.8)
+                      : Colors.grey[300]
+                  : touchedIndex == chartData.indexOf(data)
+                      ? Colors.black
+                      : Colors.grey[700]
+            ],
+            width: 8,
+          ),
+        ]);
+      }));
+    }
 
     return AspectRatio(
       aspectRatio: 1.0,
@@ -82,6 +110,7 @@ class _BarChartDeathsState extends State<BarChartDeaths> {
                     barTouchResponse.touchInput is! FlPanEnd &&
                     barTouchResponse.touchInput is! FlLongPressEnd) {
                   touchedIndex = barTouchResponse.spot.touchedBarGroupIndex;
+                  _values = getBarChartData(widget.chartData, touchedIndex);
                 } else {
                   touchedIndex = -1;
                 }
@@ -149,17 +178,5 @@ class _BarChartDeathsState extends State<BarChartDeaths> {
         ),
       ),
     );
-  }
-
-  List<BarChartGroupData> getBarChartData(_values, touchedIndex) {
-    _values.map((data) {
-      if (data.touchedBarIndex == touchedIndex) {
-        data.colors == widget.darkMode
-            ? Colors.redAccent[100]
-            : Colors.grey[400];
-      }
-    });
-
-    return _values;
   }
 }

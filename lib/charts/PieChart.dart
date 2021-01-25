@@ -13,37 +13,50 @@ class PieChartFlutter extends StatefulWidget {
       : super(key: key);
 }
 
-List<PieChartSectionData> showingSections(
-    List<double> chartData, bool darkMode) {
-  final double radius = 40;
-
-  return [
-    PieChartSectionData(
-      color: darkMode ? Colors.blueAccent : Colors.blue,
-      value: chartData[0],
-      radius: radius,
-      title: '',
-    ),
-    PieChartSectionData(
-      color: darkMode ? Colors.lightGreenAccent : Colors.green,
-      value: chartData[1],
-      radius: radius,
-      title: '',
-    ),
-    PieChartSectionData(
-      color: darkMode ? Colors.redAccent : Colors.red,
-      value: chartData[2],
-      radius: radius,
-      title: '',
-    ),
-  ];
-}
-
 class _PieChartFlutterState extends State<PieChartFlutter> {
+  int touchedIndex;
+
+  List<PieChartSectionData> showingSections(
+      List<double> chartData, bool darkMode) {
+    final double radius = 40;
+
+    return [
+      PieChartSectionData(
+        color: darkMode ? Colors.blueAccent.withOpacity(0.8) : Colors.blue,
+        value: chartData[0],
+        radius: touchedIndex == 0 ? 50 : radius,
+        title: '',
+      ),
+      PieChartSectionData(
+        color:
+            darkMode ? Colors.lightGreenAccent.withOpacity(0.8) : Colors.green,
+        value: chartData[1],
+        radius: touchedIndex == 1 ? 50 : radius,
+        title: '',
+      ),
+      PieChartSectionData(
+        color: darkMode ? Colors.grey[500].withOpacity(0.8) : Colors.grey[700],
+        value: chartData[2],
+        radius: touchedIndex == 2 ? 50 : radius,
+        title: '',
+      ),
+    ];
+  }
+
   Widget piechart(chartData, darkMode) => AspectRatio(
       aspectRatio: 1,
       child: PieChart(
         PieChartData(
+          pieTouchData: PieTouchData(touchCallback: (pieTouchResponse) {
+            setState(() {
+              if (pieTouchResponse.touchInput is FlLongPressEnd ||
+                  pieTouchResponse.touchInput is FlPanEnd) {
+                touchedIndex = -1;
+              } else {
+                touchedIndex = pieTouchResponse.touchedSectionIndex;
+              }
+            });
+          }),
           borderData: FlBorderData(
             show: false,
           ),
@@ -72,12 +85,14 @@ class _PieChartFlutterState extends State<PieChartFlutter> {
               child: Row(
                 children: [
                   Container(
-                    height: 10,
-                    width: 10,
+                    height: touchedIndex == 1 ? 12 : 10,
+                    width: touchedIndex == 1 ? 12 : 10,
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
+                        borderRadius: touchedIndex == 1
+                            ? BorderRadius.circular(6)
+                            : BorderRadius.circular(5),
                         color: widget.darkMode
-                            ? Colors.lightGreenAccent
+                            ? Colors.lightGreenAccent.withOpacity(0.8)
                             : Colors.green),
                   ),
                   Padding(
@@ -117,11 +132,15 @@ class _PieChartFlutterState extends State<PieChartFlutter> {
               child: Row(
                 children: [
                   Container(
-                    height: 10,
-                    width: 10,
+                    height: touchedIndex == 0 ? 12 : 10,
+                    width: touchedIndex == 0 ? 12 : 10,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      color: widget.darkMode ? Colors.blueAccent : Colors.blue,
+                      borderRadius: touchedIndex == 0
+                          ? BorderRadius.circular(6)
+                          : BorderRadius.circular(5),
+                      color: widget.darkMode
+                          ? Colors.blueAccent.withOpacity(0.8)
+                          : Colors.blue,
                     ),
                   ),
                   Padding(
@@ -161,11 +180,15 @@ class _PieChartFlutterState extends State<PieChartFlutter> {
               child: Row(
                 children: [
                   Container(
-                    height: 10,
-                    width: 10,
+                    height: touchedIndex == 2 ? 12 : 10,
+                    width: touchedIndex == 2 ? 12 : 10,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      color: widget.darkMode ? Colors.redAccent : Colors.red,
+                      borderRadius: touchedIndex == 2
+                          ? BorderRadius.circular(6)
+                          : BorderRadius.circular(5),
+                      color: widget.darkMode
+                          ? Colors.grey[500].withOpacity(0.8)
+                          : Colors.grey[700],
                     ),
                   ),
                   Padding(

@@ -10,6 +10,7 @@ class ThemeNotifier extends ChangeNotifier {
 
   ThemeNotifier() {
     _darkTheme = false;
+    _loadFromPrefs();
   }
 
   toggleTheme() {
@@ -79,7 +80,7 @@ ThemeData light = ThemeData(
     ));
 
 ThemeData dark = ThemeData(
-    secondaryHeaderColor: Colors.grey[400],
+    secondaryHeaderColor: Colors.white70,
     appBarTheme: AppBarTheme(
         color: Colors.black,
         elevation: 0,
@@ -99,17 +100,23 @@ ThemeData dark = ThemeData(
     textTheme: TextTheme(
       headline5: GoogleFonts.openSans(
           textStyle: TextStyle(
-              fontWeight: FontWeight.w600, fontSize: 18, color: Colors.white)),
+              fontWeight: FontWeight.w600,
+              fontSize: 18,
+              color: Colors.white70)),
       subtitle1: GoogleFonts.openSans(
           textStyle:
-              TextStyle(fontWeight: FontWeight.w400, color: Colors.white)),
+              TextStyle(fontWeight: FontWeight.w400, color: Colors.white70)),
       subtitle2: GoogleFonts.openSans(
           textStyle:
               TextStyle(fontWeight: FontWeight.w400, color: Colors.grey[300])),
       bodyText1: GoogleFonts.openSans(
           textStyle: TextStyle(
-              fontWeight: FontWeight.w400, fontSize: 10, color: Colors.white)),
+              fontWeight: FontWeight.w400,
+              fontSize: 10,
+              color: Colors.white70)),
       headline6: GoogleFonts.openSans(
           textStyle: TextStyle(
-              fontWeight: FontWeight.w600, fontSize: 16, color: Colors.white)),
+              fontWeight: FontWeight.w600,
+              fontSize: 16,
+              color: Colors.white70)),
     ));

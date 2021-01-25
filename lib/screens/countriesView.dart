@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../models/countryData.dart';
 import 'dart:convert';
@@ -10,7 +11,7 @@ class Countries extends StatefulWidget {
   _CountriesState createState() => _CountriesState();
 }
 
-Future<List<Country>> fetchData() async {
+Future<List<Country>> FetchData() async {
   final response =
       await http.get('https://corona.lmao.ninja/v2/countries?sort=cases');
   if (response.statusCode == 200) {
@@ -31,7 +32,7 @@ class _CountriesState extends State<Countries>
   @override
   void initState() {
     setState(() {
-      _listcountries = fetchData();
+      _listcountries = FetchData();
     });
     super.initState();
   }
@@ -74,7 +75,7 @@ class _CountriesState extends State<Countries>
         ),
       );
 
-  Widget _countryTile(_country, f) => Padding(
+  Widget _countryTile(_country, f, darkMode) => Padding(
       padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
       child: InkWell(
         onTap: () {
@@ -106,36 +107,155 @@ class _CountriesState extends State<Countries>
                           _country.country_name,
                           style: Theme.of(context).textTheme.headline6,
                         ),
-                        Text('#' + _country.id.toString(),
-                            style: Theme.of(context).textTheme.bodyText1),
+                        // Text('#' + _country.id.toString(),
+                        //     style: Theme.of(context).textTheme.bodyText1),
                       ],
                     )
                   ],
                 ),
                 Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      f.format(_country.cases),
-                      style: Theme.of(context).textTheme.headline6,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Icon(
+                          FontAwesomeIcons.virus,
+                          color: darkMode
+                              ? Colors.redAccent.withOpacity(0.7)
+                              : Colors.red,
+                          size: 12,
+                        ),
+                        SizedBox(
+                          width: 1,
+                        ),
+                        // Text('Cases:',
+                        //     style: darkMode
+                        //         ? GoogleFonts.openSans(
+                        //             color: Colors.white,
+                        //             fontSize: 14,
+                        //             fontWeight: FontWeight.w600)
+                        //         : GoogleFonts.openSans(
+                        //             color: Colors.black,
+                        //             fontSize: 14,
+                        //             fontWeight: FontWeight.w600)),
+                        Text(
+                            _country.cases > 10000
+                                ? NumberFormat.compact().format(_country.cases)
+                                : NumberFormat('#,###').format(_country.cases),
+                            style: darkMode
+                                ? GoogleFonts.openSans(
+                                    color: Colors.redAccent.withOpacity(0.7),
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w600)
+                                : GoogleFonts.openSans(
+                                    color: Colors.red,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w600))
+                      ],
                     ),
-                    _country.new_cases > 0
-                        ? Row(
-                            children: [
-                              Text(
-                                '+',
-                                style: Theme.of(context).textTheme.subtitle2,
-                              ),
-                              SizedBox(
-                                width: 2,
-                              ),
-                              Text(
-                                f.format(_country.new_cases),
-                                style: Theme.of(context).textTheme.subtitle2,
-                              ),
-                            ],
-                          )
-                        : Row()
+                    SizedBox(
+                      height: 2,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Icon(
+                          FontAwesomeIcons.skullCrossbones,
+                          color: darkMode
+                              ? Colors.grey[500].withOpacity(0.7)
+                              : Colors.grey[700],
+                          size: 12,
+                        ),
+                        SizedBox(
+                          width: 1,
+                        ),
+                        // Text('Deaths:',
+                        //     style: darkMode
+                        //         ? GoogleFonts.openSans(
+                        //             color: Colors.white,
+                        //             fontSize: 14,
+                        //             fontWeight: FontWeight.w600)
+                        //         : GoogleFonts.openSans(
+                        //             color: Colors.black,
+                        //             fontSize: 14,
+                        //             fontWeight: FontWeight.w600)),
+                        Text(
+                            _country.deaths > 10000
+                                ? NumberFormat.compact().format(_country.deaths)
+                                : NumberFormat('#,###').format(_country.deaths),
+                            style: darkMode
+                                ? GoogleFonts.openSans(
+                                    color: Colors.grey[500].withOpacity(0.7),
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w600)
+                                : GoogleFonts.openSans(
+                                    color: Colors.grey[700],
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w600))
+                      ],
+                    ),
+                    SizedBox(
+                      height: 2,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Icon(
+                          FontAwesomeIcons.solidHeart,
+                          color: darkMode
+                              ? Colors.lightGreenAccent.withOpacity(0.7)
+                              : Colors.green,
+                          size: 12,
+                        ),
+                        SizedBox(
+                          width: 1,
+                        ),
+                        // Text('Cases:',
+                        //     style: darkMode
+                        //         ? GoogleFonts.openSans(
+                        //             color: Colors.white,
+                        //             fontSize: 14,
+                        //             fontWeight: FontWeight.w600)
+                        //         : GoogleFonts.openSans(
+                        //             color: Colors.black,
+                        //             fontSize: 14,
+                        //             fontWeight: FontWeight.w600)),
+                        Text(
+                            _country.recovered > 10000
+                                ? NumberFormat.compact()
+                                    .format(_country.recovered)
+                                : NumberFormat('#,###')
+                                    .format(_country.recovered),
+                            style: darkMode
+                                ? GoogleFonts.openSans(
+                                    color: Colors.lightGreenAccent
+                                        .withOpacity(0.7),
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w600)
+                                : GoogleFonts.openSans(
+                                    color: Colors.green,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w600))
+                      ],
+                    ),
+                    // _country.new_cases > 0
+                    //     ? Row(
+                    //         children: [
+                    //           Text(
+                    //             '+',
+                    //             style: Theme.of(context).textTheme.subtitle2,
+                    //           ),
+                    //           SizedBox(
+                    //             width: 2,
+                    //           ),
+                    //           Text(
+                    //             f.format(_country.new_cases),
+                    //             style: Theme.of(context).textTheme.subtitle2,
+                    //           ),
+                    //         ],
+                    //       )
+                    //     : Row()
                   ],
                 )
               ],
@@ -144,13 +264,14 @@ class _CountriesState extends State<Countries>
         ),
       ));
 
-  Widget _countriesList(List<Country> _countries, refreshList, f) => Expanded(
+  Widget _countriesList(List<Country> _countries, refreshList, f, darkMode) =>
+      Expanded(
           child: RefreshIndicator(
         onRefresh: refreshList,
         child: ListView.builder(
           itemCount: _countries.length,
           itemBuilder: (context, index) {
-            return _countryTile(_countries[index], f);
+            return _countryTile(_countries[index], f, darkMode);
           },
         ),
       ));
@@ -159,8 +280,8 @@ class _CountriesState extends State<Countries>
   Widget build(BuildContext context) {
     super.build(context);
     var f = new NumberFormat("###,###", "en_US");
-    // var brigthness = MediaQuery.of(context).platformBrightness;
-    // bool darkMode = brigthness == Brightness.dark;
+    var brigthness = Theme.of(context).brightness;
+    bool darkMode = brigthness == Brightness.dark;
     return FutureBuilder<List<Country>>(
         future: _listcountries,
         builder: (context, snapshot) {
@@ -171,7 +292,7 @@ class _CountriesState extends State<Countries>
                 .toList();
             return Column(children: [
               _searchBar(),
-              _countriesList(_countries, refreshList, f)
+              _countriesList(_countries, refreshList, f, darkMode)
             ]);
           } else if (snapshot.hasError) {
             return Center(
@@ -186,7 +307,7 @@ class _CountriesState extends State<Countries>
 
   Future<Null> refreshList() async {
     setState(() {
-      _listcountries = fetchData();
+      _listcountries = FetchData();
     });
   }
 }

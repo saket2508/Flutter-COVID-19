@@ -339,13 +339,6 @@ class _CountryPageState extends State<CountryPage> {
                       Container(
                         height: MediaQuery.of(context).size.width * 0.5,
                         width: MediaQuery.of(context).size.width,
-                        // child: Padding(
-                        //   padding: const EdgeInsets.fromLTRB(11, 5, 24, 5),
-                        //   child: LineChartDeaths(
-                        //     chartData: snapshot.data.deathsData,
-                        //     darkMode: darkMode,
-                        //   ),
-                        // ),
                         child: timeline == "All Time"
                             ? Padding(
                                 padding:

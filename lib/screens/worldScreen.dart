@@ -267,9 +267,11 @@ class _WorldState extends State<World>
                                 Padding(
                                   padding: const EdgeInsets.all(2.0),
                                   child: ChoiceChip(
-                                    label: Text('All Time',
-                                        style: GoogleFonts.openSans(
-                                            fontWeight: FontWeight.w600)),
+                                    label: Text(
+                                      'All Time',
+                                      style: GoogleFonts.openSans(
+                                          fontWeight: FontWeight.w600),
+                                    ),
                                     selected: timeline == 'All Time',
                                     selectedColor: darkMode
                                         ? Colors.grey[100]

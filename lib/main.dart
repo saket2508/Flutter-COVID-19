@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'screens/countriesView.dart';
 import 'screens/countryScreen.dart';
 import 'screens/worldScreen.dart';
@@ -36,8 +35,6 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // var brightness = Theme.of(context).brightness;
-    // bool darkMode = brightness == Brightness.dark;
     return DefaultTabController(
         length: 2,
         child: Scaffold(

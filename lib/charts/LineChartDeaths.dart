@@ -83,16 +83,18 @@ class _LineChartDeathsState extends State<LineChartDeaths> {
                 final FlSpot spot = barData.spots[spotIndex];
                 return TouchedSpotIndicatorData(
                   FlLine(
-                      color:
-                          widget.darkMode ? Colors.redAccent : Colors.grey[700],
+                      color: widget.darkMode
+                          ? Colors.grey[500].withOpacity(0.8)
+                          : Colors.grey[700],
                       strokeWidth: 2),
                   FlDotData(getDotPainter: (spot, percent, barData, index) {
                     return FlDotCirclePainter(
                       radius: 8,
                       color: widget.darkMode ? Colors.grey[850] : Colors.white,
                       strokeWidth: 4,
-                      strokeColor:
-                          widget.darkMode ? Colors.redAccent : Colors.grey[700],
+                      strokeColor: widget.darkMode
+                          ? Colors.grey[500].withOpacity(0.8)
+                          : Colors.grey[700],
                     );
                   }),
                 );
@@ -156,14 +158,16 @@ class _LineChartDeathsState extends State<LineChartDeaths> {
           lineBarsData: [
             LineChartBarData(
               spots: _values,
-              colors: widget.darkMode ? [Colors.redAccent] : [Colors.grey[700]],
+              colors: widget.darkMode
+                  ? [Colors.grey[500].withOpacity(0.8)]
+                  : [Colors.grey[700]],
               isStrokeCapRound: true,
               dotData: FlDotData(show: false),
               barWidth: 2,
               belowBarData: BarAreaData(
                 show: true,
                 colors: widget.darkMode
-                    ? [Colors.redAccent[200].withOpacity(0.15)]
+                    ? [Colors.grey[400].withOpacity(0.15)]
                     : [Colors.grey[600].withOpacity(0.15)],
                 gradientColorStops: const [0.25, 0.5, 0.75],
                 gradientFrom: const Offset(0.5, 0),

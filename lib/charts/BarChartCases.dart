@@ -39,7 +39,7 @@ class _BarChartCasesState extends State<BarChartCases> {
       return BarChartGroupData(x: data.date.millisecondsSinceEpoch, barRods: [
         BarChartRodData(
           y: data.variable.toDouble(),
-          colors: [widget.darkMode ? Colors.amberAccent[400] : Colors.blue],
+          colors: [widget.darkMode ? Colors.redAccent : Colors.red],
           width: 8,
         ),
       ]);
@@ -49,8 +49,6 @@ class _BarChartCasesState extends State<BarChartCases> {
     } else {
       y_divider = (((max_y - min_y) / 5) / 100000).ceilToDouble() * 100000;
     }
-
-    // print(y_divider);
 
     min_y = (min_y / y_divider).floorToDouble() * y_divider;
     max_y = (max_y / y_divider).ceilToDouble() * y_divider;
@@ -91,7 +89,6 @@ class _BarChartCasesState extends State<BarChartCases> {
                   touchedIndex = -1;
                 }
               });
-              // print(touchedIndex);
             },
           ),
           maxY: max_y,
@@ -137,7 +134,6 @@ class _BarChartCasesState extends State<BarChartCases> {
                   return DateFormat('MMMd').format(date);
                 }
               },
-              // interval: ((max_x - min_x) / 5),
             ),
             leftTitles: SideTitles(
               showTitles: true,
@@ -159,15 +155,26 @@ class _BarChartCasesState extends State<BarChartCases> {
     );
   }
 
-  List<BarChartGroupData> getBarChartData(_values, touchedIndex) {
-    _values.map((data) {
-      if (data.touchedBarIndex == touchedIndex) {
-        data.colors == widget.darkMode
-            ? Colors.amberAccent[100]
-            : Colors.blue[200];
-      }
-    });
-
-    return _values;
+  List<BarChartGroupData> getBarChartData(chartData, touchedIndex) {
+    int mapIndex = -1;
+    // List<BarChartGroupData> _values = const [];
+    return chartData.map((data) {
+      mapIndex += 1;
+      return BarChartGroupData(x: data.date.millisecondsSinceEpoch, barRods: [
+        BarChartRodData(
+          y: data.variable.toDouble(),
+          colors: [
+            widget.darkMode
+                ? mapIndex == touchedIndex
+                    ? Colors.red[100]
+                    : Colors.red
+                : mapIndex == touchedIndex
+                    ? Colors.redAccent[100]
+                    : Colors.redAccent
+          ],
+          width: 8,
+        ),
+      ]);
+    }).toList();
   }
 }
