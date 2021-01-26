@@ -1,6 +1,16 @@
-# flutter_covid
+# Flutter COVID-19
 
-A new Flutter project.
+iOS/Android app that displays real-time COVID-19 figures around the world with charts and visualizations.
+
+
+![img-1](/screenshots/Screenshot_1611629765.png?raw=true)
+
+![img-2](/screenshots/Screenshot_1611629883.png?raw=true)
+
+![img-3](/screenshots/Screenshot_1611629899.png?raw=true)
+
+![img-4](/screenshots/Screenshot_1611630301.png?raw=true)
+
 
 ## Getting Started
 
