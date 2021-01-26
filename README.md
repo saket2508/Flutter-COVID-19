@@ -7,7 +7,7 @@ iOS/Android app that displays real-time COVID-19 figures around the world with c
 <table>
   <tr>
     <td>Global figures</td>
-     <td>Countries screen menu</td>
+     <td>Countries menu</td>
      <td>Country stats</td>
      <td>Dark mode support</td>
   </tr>
