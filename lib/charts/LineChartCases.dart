@@ -84,8 +84,8 @@ class _LineChartCasesState extends State<LineChartCases> {
               return TouchedSpotIndicatorData(
                 FlLine(
                     color: widget.darkMode
-                        ? Colors.redAccent.withOpacity(0.8)
-                        : Colors.red,
+                        ? Colors.amberAccent.withOpacity(0.8)
+                        : Colors.blue,
                     strokeWidth: 2),
                 FlDotData(getDotPainter: (spot, percent, barData, index) {
                   return FlDotCirclePainter(
@@ -93,8 +93,8 @@ class _LineChartCasesState extends State<LineChartCases> {
                     color: widget.darkMode ? Colors.grey[850] : Colors.white,
                     strokeWidth: 4,
                     strokeColor: widget.darkMode
-                        ? Colors.redAccent.withOpacity(0.8)
-                        : Colors.red,
+                        ? Colors.amberAccent.withOpacity(0.8)
+                        : Colors.blue,
                   );
                 }),
               );
@@ -157,15 +157,15 @@ class _LineChartCasesState extends State<LineChartCases> {
         lineBarsData: [
           LineChartBarData(
             spots: _values,
-            colors: widget.darkMode ? [Colors.redAccent] : [Colors.red],
+            colors: widget.darkMode ? [Colors.amberAccent] : [Colors.blue],
             isStrokeCapRound: true,
             dotData: FlDotData(show: false),
             barWidth: 2,
             belowBarData: BarAreaData(
               show: true,
               colors: widget.darkMode
-                  ? [Colors.redAccent[200].withOpacity(0.15)]
-                  : [Colors.red[200].withOpacity(0.15)],
+                  ? [Colors.amberAccent[100].withOpacity(0.15)]
+                  : [Colors.blue[200].withOpacity(0.15)],
               gradientColorStops: const [0.25, 0.5, 0.75],
               gradientFrom: const Offset(0.5, 0),
               gradientTo: const Offset(0.5, 1),

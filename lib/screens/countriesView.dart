@@ -122,8 +122,8 @@ class _CountriesState extends State<Countries>
                         Icon(
                           FontAwesomeIcons.virus,
                           color: darkMode
-                              ? Colors.redAccent.withOpacity(0.7)
-                              : Colors.red,
+                              ? Colors.amberAccent.withOpacity(0.7)
+                              : Colors.blue,
                           size: 12,
                         ),
                         SizedBox(
@@ -145,11 +145,11 @@ class _CountriesState extends State<Countries>
                                 : NumberFormat('#,###').format(_country.cases),
                             style: darkMode
                                 ? GoogleFonts.openSans(
-                                    color: Colors.redAccent.withOpacity(0.7),
+                                    color: Colors.amberAccent.withOpacity(0.7),
                                     fontSize: 14,
                                     fontWeight: FontWeight.w600)
                                 : GoogleFonts.openSans(
-                                    color: Colors.red,
+                                    color: Colors.blue,
                                     fontSize: 14,
                                     fontWeight: FontWeight.w600))
                       ],
@@ -163,8 +163,8 @@ class _CountriesState extends State<Countries>
                         Icon(
                           FontAwesomeIcons.skullCrossbones,
                           color: darkMode
-                              ? Colors.grey[500].withOpacity(0.7)
-                              : Colors.grey[700],
+                              ? Colors.redAccent.withOpacity(0.7)
+                              : Colors.red,
                           size: 12,
                         ),
                         SizedBox(
@@ -186,59 +186,59 @@ class _CountriesState extends State<Countries>
                                 : NumberFormat('#,###').format(_country.deaths),
                             style: darkMode
                                 ? GoogleFonts.openSans(
-                                    color: Colors.grey[500].withOpacity(0.7),
+                                    color: Colors.redAccent.withOpacity(0.7),
                                     fontSize: 14,
                                     fontWeight: FontWeight.w600)
                                 : GoogleFonts.openSans(
-                                    color: Colors.grey[700],
+                                    color: Colors.red,
                                     fontSize: 14,
                                     fontWeight: FontWeight.w600))
                       ],
                     ),
-                    SizedBox(
-                      height: 2,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Icon(
-                          FontAwesomeIcons.solidHeart,
-                          color: darkMode
-                              ? Colors.lightGreenAccent.withOpacity(0.7)
-                              : Colors.green,
-                          size: 12,
-                        ),
-                        SizedBox(
-                          width: 1,
-                        ),
-                        // Text('Cases:',
-                        //     style: darkMode
-                        //         ? GoogleFonts.openSans(
-                        //             color: Colors.white,
-                        //             fontSize: 14,
-                        //             fontWeight: FontWeight.w600)
-                        //         : GoogleFonts.openSans(
-                        //             color: Colors.black,
-                        //             fontSize: 14,
-                        //             fontWeight: FontWeight.w600)),
-                        Text(
-                            _country.recovered > 10000
-                                ? NumberFormat.compact()
-                                    .format(_country.recovered)
-                                : NumberFormat('#,###')
-                                    .format(_country.recovered),
-                            style: darkMode
-                                ? GoogleFonts.openSans(
-                                    color: Colors.lightGreenAccent
-                                        .withOpacity(0.7),
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w600)
-                                : GoogleFonts.openSans(
-                                    color: Colors.green,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w600))
-                      ],
-                    ),
+                    // SizedBox(
+                    //   height: 2,
+                    // ),
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    //   children: [
+                    //     Icon(
+                    //       FontAwesomeIcons.solidHeart,
+                    //       color: darkMode
+                    //           ? Colors.lightGreenAccent.withOpacity(0.7)
+                    //           : Colors.green,
+                    //       size: 12,
+                    //     ),
+                    //     SizedBox(
+                    //       width: 1,
+                    //     ),
+                    //     // Text('Cases:',
+                    //     //     style: darkMode
+                    //     //         ? GoogleFonts.openSans(
+                    //     //             color: Colors.white,
+                    //     //             fontSize: 14,
+                    //     //             fontWeight: FontWeight.w600)
+                    //     //         : GoogleFonts.openSans(
+                    //     //             color: Colors.black,
+                    //     //             fontSize: 14,
+                    //     //             fontWeight: FontWeight.w600)),
+                    //     Text(
+                    //         _country.recovered > 10000
+                    //             ? NumberFormat.compact()
+                    //                 .format(_country.recovered)
+                    //             : NumberFormat('#,###')
+                    //                 .format(_country.recovered),
+                    //         style: darkMode
+                    //             ? GoogleFonts.openSans(
+                    //                 color: Colors.lightGreenAccent
+                    //                     .withOpacity(0.7),
+                    //                 fontSize: 14,
+                    //                 fontWeight: FontWeight.w600)
+                    //             : GoogleFonts.openSans(
+                    //                 color: Colors.green,
+                    //                 fontSize: 14,
+                    //                 fontWeight: FontWeight.w600))
+                    //   ],
+                    // ),
                     // _country.new_cases > 0
                     //     ? Row(
                     //         children: [

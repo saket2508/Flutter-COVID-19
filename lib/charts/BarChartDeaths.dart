@@ -40,7 +40,7 @@ class _BarChartDeathsState extends State<BarChartDeaths> {
           y: data.variable.toDouble(),
           colors: [
             widget.darkMode
-                ? Colors.grey[500].withOpacity(0.8)
+                ? Colors.redAccent.withOpacity(0.8)
                 : Colors.grey[700]
           ],
           width: 8,
@@ -70,10 +70,10 @@ class _BarChartDeathsState extends State<BarChartDeaths> {
             colors: [
               widget.darkMode
                   ? touchedIndex == chartData.indexOf(data)
-                      ? Colors.grey[500].withOpacity(0.8)
-                      : Colors.grey[300]
+                      ? Colors.redAccent[100].withOpacity(0.8)
+                      : Colors.redAccent.withOpacity(0.8)
                   : touchedIndex == chartData.indexOf(data)
-                      ? Colors.black
+                      ? Colors.grey[300]
                       : Colors.grey[700]
             ],
             width: 8,

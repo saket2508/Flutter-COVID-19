@@ -35,7 +35,7 @@ class _PieChartFlutterState extends State<PieChartFlutter> {
         title: '',
       ),
       PieChartSectionData(
-        color: darkMode ? Colors.grey[500].withOpacity(0.8) : Colors.grey[700],
+        color: darkMode ? Colors.redAccent.withOpacity(0.8) : Colors.red,
         value: chartData[2],
         radius: touchedIndex == 2 ? 50 : radius,
         title: '',
@@ -187,8 +187,8 @@ class _PieChartFlutterState extends State<PieChartFlutter> {
                           ? BorderRadius.circular(6)
                           : BorderRadius.circular(5),
                       color: widget.darkMode
-                          ? Colors.grey[500].withOpacity(0.8)
-                          : Colors.grey[700],
+                          ? Colors.redAccent.withOpacity(0.8)
+                          : Colors.red,
                     ),
                   ),
                   Padding(

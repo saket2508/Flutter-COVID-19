@@ -39,7 +39,9 @@ class _BarChartCasesState extends State<BarChartCases> {
       return BarChartGroupData(x: data.date.millisecondsSinceEpoch, barRods: [
         BarChartRodData(
           y: data.variable.toDouble(),
-          colors: [widget.darkMode ? Colors.redAccent : Colors.red],
+          colors: [
+            widget.darkMode ? Colors.amberAccent.withOpacity(0.8) : Colors.blue
+          ],
           width: 8,
         ),
       ]);
@@ -166,11 +168,11 @@ class _BarChartCasesState extends State<BarChartCases> {
           colors: [
             widget.darkMode
                 ? mapIndex == touchedIndex
-                    ? Colors.red[100]
-                    : Colors.red
+                    ? Colors.amberAccent[100]
+                    : Colors.amberAccent
                 : mapIndex == touchedIndex
-                    ? Colors.redAccent[100]
-                    : Colors.redAccent
+                    ? Colors.blueAccent[100]
+                    : Colors.blueAccent
           ],
           width: 8,
         ),
