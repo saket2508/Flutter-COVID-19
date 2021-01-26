@@ -2,22 +2,19 @@
 
 iOS/Android app that displays real-time COVID-19 figures around the world with charts and visualizations.
 
-
+## App Screenshots
 
 <table>
-  <tr>
-    <td>Global figures</td>
-     <td>Countries menu</td>
-     <td>Country stats</td>
-     <td>Dark mode support</td>
-  </tr>
-  <tr>
-    <td><img src="screenshots/Screenshot_1611629765.png?raw=true" width=270 height=480></td>
-    <td><img src="screenshots/Screenshot_1611629883.png?raw=true" width=270 height=480></td>
-    <td><img src="screenshots/Screenshot_1611629899.png?raw=true" width=270 height=480></td>
-     <td><img src="screenshots/Screenshot_1611630301.png?raw=true" width=270 height=480></td>
-  </tr>
- </table>
+<tr>
+<td><img align="center" src="screenshots/Screenshot_1611629765.png?raw=true" width="350"></td>
+<td><img align="center" src="screenshots/Screenshot_1611629883.png?raw=true" width="350"></td>
+</tr>
+<tr>
+<td><img align="center" src="screenshots/Screenshot_1611629899.png?raw=true" width="350"></td>
+<td><img align="center" src="screenshots/Screenshot_1611630301.png?raw=true" width="350"></td>
+</tr>
+</table>
+
  
 ## Download
 
