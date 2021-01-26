@@ -18,6 +18,10 @@ iOS/Android app that displays real-time COVID-19 figures around the world with c
      <td><img src="screenshots/Screenshot_1611630301.png?raw=true" width=270 height=480></td>
   </tr>
  </table>
+ 
+## Download
+
+The app can be downloaded at: [APK](https://drive.google.com/file/d/1InWhEV4mFhkKp_K7wYGZELOyjjnIHsy1/view?usp=sharing)
 
 ## Getting Started
 
